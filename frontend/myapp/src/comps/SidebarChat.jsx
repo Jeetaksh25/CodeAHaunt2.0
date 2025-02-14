@@ -52,10 +52,10 @@ const Users = () => {
           justifyContent={"center"}
         >
           <Heading textAlign={"center"} fontSize={"2xl"}>
-            Available Counselors
+          {isTherapist ? "Available Patients" : "Available Counselors"}
           </Heading>
           <Switch defaultChecked={showOnlineOnly} onChange={handleFilter} mt={4} bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}>
-            Online Users Only
+          {showOnlineOnly ? "Show All" : "Show Online Only"}
           </Switch>
         </Box>
         {!isUsersLoading ? (
