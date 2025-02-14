@@ -1,12 +1,11 @@
 import { create } from "zustand";
 import { axiosInstance } from "../lib/axios.js";
-import {toast} from "react-hot-toast";
-import {io} from "socket.io-client";
-
+import { toast } from "react-hot-toast";
+import { io } from "socket.io-client";
 
 const BASE_URL = "http://localhost:5001";
 
-export const useAuthStore = create((set,get) => ({
+export const useAuthStore = create((set, get) => ({
   authUser: null,
 
   isSigningUp: false,
@@ -18,10 +17,14 @@ export const useAuthStore = create((set,get) => ({
 
   socket: null,
 
+  isTherapist: false,
+
   checkAuth: async (req, res) => {
     try {
       const res = await axiosInstance.get("/auth/check");
-      set({ authUser: res.data });
+      set({ authUser: res.data ,
+        isTherapist: res.data.role === "therapist"
+      });
 
       get().connectSocket();
     } catch (error) {
@@ -35,36 +38,36 @@ export const useAuthStore = create((set,get) => ({
   login: async (data) => {
     set({ isLoggingIn: true });
     try {
-        const res = await axiosInstance.post("/auth/login", data);
-        set({ authUser: res.data });
-        toast.success("Logged in successful");
-
-        get().connectSocket();
-
+      const res = await axiosInstance.post("/auth/login", data);
+      set({ authUser: res.data });
+      toast.success("Logged in successful");
+      set({ authUser: res.data, isTherapist: res.data.role === "therapist" });
+      get().connectSocket();
     } catch (error) {
-        console.log(error);
-        toast.error("Invalid credentials");
+      console.log(error);
+      toast.error("Invalid credentials");
     } finally {
-        set({ isLoggingIn: false });
+      set({ isLoggingIn: false });
     }
   },
 
   signup: async (data) => {
-    set({isSigningUp: true});
+    set({ isSigningUp: true });
     try {
-        const res = await axiosInstance.post("/auth/signup", data);
-        set({ authUser: res.data }); 
-        toast.success("Signed up successfull");
+      const res = await axiosInstance.post("/auth/signup", data);
+      set({ authUser: res.data });
+      toast.success("Signed up successfull");
 
-        get().connectSocket();
+      set({ authUser: res.data, isTherapist: res.data.role === "therapist" });
 
+      get().connectSocket();
     } catch (error) {
-        console.log(error);
-        toast.error("Signup failed");
+      console.log(error);
+      toast.error("Signup failed");
     } finally {
-        set({isSigningUp: false});
+      set({ isSigningUp: false });
     }
-  }, 
+  },
 
   logout: async () => {
     try {
@@ -73,7 +76,6 @@ export const useAuthStore = create((set,get) => ({
       toast.success("Logged out successfully");
 
       get().disconnectSocket();
-
     } catch (error) {
       console.log(error);
       toast.error("Logout failed");
@@ -84,7 +86,6 @@ export const useAuthStore = create((set,get) => ({
     try {
       const res = await axiosInstance.get("/auth/profile");
       set({ authUser: res.data });
-
     } catch (error) {
       console.log(error);
       set({ authUser: null });
@@ -92,24 +93,22 @@ export const useAuthStore = create((set,get) => ({
   },
 
   connectSocket: () => {
-    const {authUser} = get();
-    if(!authUser || get().socket?.connected) return;
-    
-    const socket = io(BASE_URL,{
-      query: {userId:authUser._id},
+    const { authUser } = get();
+    if (!authUser || get().socket?.connected) return;
+
+    const socket = io(BASE_URL, {
+      query: { userId: authUser._id },
       transports: ["websocket"],
     });
     socket.connect();
-    set({ socket:socket });
+    set({ socket: socket });
 
     socket.on("getOnlineUsers", (userIds) => {
-      set({ onlineUsers:userIds });
-    })
+      set({ onlineUsers: userIds });
+    });
   },
 
   disconnectSocket: () => {
-    if(get().socket?.connected) get().socket.disconnect();
+    if (get().socket?.connected) get().socket.disconnect();
   },
-  
-
 }));

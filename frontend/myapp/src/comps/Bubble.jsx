@@ -8,7 +8,7 @@ const Bubble = ({ message }) => {
   return (
     <HStack
       spacing={4}
-      my={1}
+      my={4}
       justifyContent={isUserMessage ? "flex-end" : "flex-start"}
     >
       <VStack
@@ -28,15 +28,14 @@ const Bubble = ({ message }) => {
               ? useColorModeValue("black", "white")
               : useColorModeValue("black", "white")
           }
-          px={3}
-          py={2}    
+          p={5}
           borderRadius="md"
-          maxW="full"
           w={"max-content"}
           roundedTopLeft={"2xl"}
           roundedTopRight={"2xl"}
           roundedBottomLeft={isUserMessage ? "2xl" : "none"}
           roundedBottomRight={isUserMessage ? "none" : "2xl"}
+          maxW={"420px"}
         >
           <Text>{message.parts[0].text}</Text>
           {message.parts[1]?.inline_data && (

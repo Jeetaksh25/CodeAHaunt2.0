@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import { generateToken } from "../lib/utils.js";
 
 export const signup = async (req, res) => {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, role } = req.body;
   try {
     if (!fullName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -28,6 +28,7 @@ export const signup = async (req, res) => {
       fullName: fullName,
       email: email,
       password: hashedPassword,
+      role: role,
     });
 
     if (newUser) {
@@ -38,6 +39,7 @@ export const signup = async (req, res) => {
         _id: newUser._id,
         fullName: newUser.fullName,
         email: newUser.email,
+        role: newUser.role,
       });
     }
   } catch (error) {

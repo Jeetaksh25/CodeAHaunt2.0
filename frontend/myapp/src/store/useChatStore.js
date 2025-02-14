@@ -3,9 +3,9 @@ import { axiosInstance } from "../lib/axios.js";
 import { toast } from "react-hot-toast";
 
 import { useAuthStore } from "./useAuthStore.js";
-import { io } from "socket.io-client";  
+import { io } from "socket.io-client";
 
-export const useChatStore = create((set,get) => ({
+export const useChatStore = create((set, get) => ({
   messages: [],
   users: [],
   selectedUser: null,
@@ -17,8 +17,17 @@ export const useChatStore = create((set,get) => ({
   getUsers: async () => {
     set({ isUsersLoading: true });
     try {
+      const { authUser } = useAuthStore.getState();
+      if (!authUser) return;
+
       const res = await axiosInstance.get("/chat/users");
-      set({ users: res.data.filteredUsers });
+      const allUsers = res.data.filteredUsers;
+
+      const filteredUsers = authUser.role === "therapist"
+        ? allUsers.filter(user => user.role === "patient")
+        : allUsers.filter(user => user.role === "therapist");
+
+      set({ users: filteredUsers });
     } catch (error) {
       toast.error("Failed to fetch users");
     } finally {
@@ -40,21 +49,24 @@ export const useChatStore = create((set,get) => ({
   },
 
   sendMessages: async (messageData) => {
-    const {selectedUser,messages} = get();
+    const { selectedUser, messages } = get();
     try {
-      const res = await axiosInstance.post(`/chat/send/${selectedUser._id}`,messageData);
-      set((state)=>({ messages:[...state.messages,res.data] }));
+      const res = await axiosInstance.post(
+        `/chat/send/${selectedUser._id}`,
+        messageData
+      );
+      set((state) => ({ messages: [...state.messages, res.data] }));
     } catch (error) {
       toast.error("Failed to send message");
-    } 
+    }
   },
-  fetchSuggestions: async (input) =>{
+  fetchSuggestions: async (input) => {
     try {
       const res = await fetch(`https://api.datamuse.com/words?sp=${input}*`);
       const data = await res.json();
-      if(!Array.isArray(data)) throw new Error("Invalid API response");
+      if (!Array.isArray(data)) throw new Error("Invalid API response");
 
-      set({ suggestions: data.slice(0, 5).map((item) => item.word) }); 
+      set({ suggestions: data.slice(0, 5).map((item) => item.word) });
     } catch (error) {
       console.error("Error fetching suggestions:", error);
       set({ suggestions: [] });
@@ -71,8 +83,9 @@ export const useChatStore = create((set,get) => ({
     }
 
     const handleNewMessage = (newMessage) => {
-      const isMessageSentfromSelectedUser = newMessage.senderId === selectedUser._id;
-      if(!isMessageSentfromSelectedUser) return;
+      const isMessageSentfromSelectedUser =
+        newMessage.senderId === selectedUser._id;
+      if (!isMessageSentfromSelectedUser) return;
       set((state) => ({
         messages: [...state.messages, newMessage],
       }));
@@ -92,5 +105,5 @@ export const useChatStore = create((set,get) => ({
     }
   },
 
-  setSelectedUser: (user) => set({ selectedUser:user }),
+  setSelectedUser: (user) => set({ selectedUser: user }),
 }));

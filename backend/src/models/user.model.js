@@ -16,6 +16,11 @@ const userSchema = new mongoose.Schema(
       required: true,
       minlength: 6,
     },
+    role: {
+      type: String,
+      enum: ["patient","therapist"],
+      required: true,
+    },
     completedTasks: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task",

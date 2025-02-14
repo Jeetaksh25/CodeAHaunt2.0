@@ -14,11 +14,11 @@ import {
 import Loader from "./Loader";
 import { Switch } from "@/components/ui/switch"
 
-const Users = () => {
-  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
-    useChatStore();
 
-  const { onlineUsers } = useAuthStore();
+
+const Users = () => {
+  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
+  const { onlineUsers, isTherapist } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
   useEffect(() => {
@@ -54,9 +54,9 @@ const Users = () => {
           <Heading textAlign={"center"} fontSize={"2xl"}>
             Available Counselors
           </Heading>
-            <Switch defaultChecked={showOnlineOnly} onChange={handleFilter} mt={4} bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}>
-              Online Users Only
-            </Switch>
+          <Switch defaultChecked={showOnlineOnly} onChange={handleFilter} mt={4} bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}>
+            Online Users Only
+          </Switch>
         </Box>
         {!isUsersLoading ? (
           <Box
@@ -81,26 +81,22 @@ const Users = () => {
                   textAlign={"left"}
                   _hover={{ bg: "gray.200" }}
                   color={useColorModeValue("black", "white")}
-                  bg={
-                    selectedUser?._id === user._id ? "gray.300" : "transparent"
-                  }
+                  bg={selectedUser?._id === user._id ? "gray.300" : "transparent"}
                   my={2}
                   bgColor={useColorModeValue("rgb(254, 244, 226)", "gray.800")}
                 >
                   <HStack justifyContent={"space-between"} w={"100%"} h={"100%"}>
                     <Text>{user.fullName}</Text>
                     <Text>{onlineUsers.includes(user._id) ? "🟢" : "🔴"} </Text>
-
                   </HStack>
-
                 </Button>
               ))
             ) : (
               <Text textAlign="center" p={4}>
-                No counselors available
+                {isTherapist ? "No patients available" : "No counselors available"}
               </Text>
             )}
-            {filteredUsers.length === 0 && <Text>No counselors are available</Text>}
+            {filteredUsers.length === 0 && <Text textAlign="center">{isTherapist ? "No patients available" : "No counselors available"}</Text>}
           </Box>
         ) : (
           <Loader minH={"65vh"} h={"65vh"} />

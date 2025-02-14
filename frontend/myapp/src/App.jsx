@@ -40,10 +40,10 @@ function App() {
         <NavBar />
 
         <Routes>
-          <Route path="/" element={null} />
+          <Route path="/" element={<HomePage/>} />
           <Route
             path="/signup"
-            element={!authUser ? null : <Navigate to="/" />}
+            element={!authUser ? <SignUpPage/> : <Navigate to="/" />}
           />
           <Route
             path="/login"
@@ -51,16 +51,16 @@ function App() {
           />
           <Route
             path="/profile"
-            element={authUser ? null : <Navigate to="/login" />}
+            element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
           />
           <Route
             path="/tasks"
-            element={authUser ? null : <Navigate to="/login" />}
+            element={authUser ? <Tasks /> : <Navigate to="/login" />}
           />
-          <Route path="/test" element={null} />
+          <Route path="/test" element={<Test/>} />
           <Route
             path="/connect"
-            element={authUser ? null : <Navigate to="/login" />}
+            element={authUser ? <Connect /> : <Navigate to="/login" />}
           />
           <Route
             path="/chatbot"
@@ -71,7 +71,7 @@ function App() {
           />
           <Route
             path="/freechat"
-            element={authUser ? null : <Navigate to="/login" />}
+            element={authUser ? <Chat/> : <Navigate to="/login" />}
           />
 
         </Routes>

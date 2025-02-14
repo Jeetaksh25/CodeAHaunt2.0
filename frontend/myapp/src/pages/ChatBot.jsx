@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import {
   ArrowUpward,
-  AttachFile, 
+  AttachFile,
   Close,
   KeyboardArrowDown,
   SentimentSatisfied,
@@ -26,8 +26,29 @@ import { IoSend } from "react-icons/io5";
 import { FaRegSmile } from "react-icons/fa";
 import EmojiPicker from "emoji-picker-react";
 import { FaRegImage } from "react-icons/fa6";
+import { IoMdClose } from "react-icons/io";
 
-export default function Chatbot() {
+const Chatbot = () => {
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (
+        emojiPickerRef.current &&
+        !emojiPickerRef.current.contains(e.target) &&
+        e.target.getAttribute("data-emoji") !== "true"
+      ) {
+        setShowEmojiPicker(false);
+      }
+    };
+
+    if (showEmojiPicker) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
   const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
   const chatContainerRef = useRef(null);
@@ -42,6 +63,8 @@ export default function Chatbot() {
     chatHistory,
   } = useAIBotStore();
 
+  const chatLength = chatHistory.length;
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
@@ -54,12 +77,20 @@ export default function Chatbot() {
     }
   };
 
+  const handleSendOnEnter = (e) => {
+    if (e.key === "Enter") {
+      sendMessage(e);
+    }
+  };
+
   useEffect(() => {
-    chatContainerRef.current?.scrollTo({
-      top: chatContainerRef.current.scrollHeight,
-      behavior: "smooth",
-    });
-  }, [chatHistory]);
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [chatHistory, isBotLoading]);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -85,71 +116,74 @@ export default function Chatbot() {
     setFile(null);
   };
 
-  if (isBotLoading) {
-    return <Loader />;
-  }
-
-  useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        emojiPickerRef.current &&
-        !emojiPickerRef.current.contains(e.target) &&
-        e.target.getAttribute("data-emoji") !== "true"
-      ) {
-        setShowEmojiPicker(false);
-      }
-    };
-
-    if (showEmojiPicker) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showEmojiPicker]);
 
   return (
     <Container
-      w={"6xl"}
-      minH={"80vh"}
+      maxW={"6xl"}
+      w={"full"}
+      minH={"93vh"}
+      h={"93vh"}
       display={"flex"}
       justifyContent={"center"}
       alignItems={"center"}
+      flexDir={"column"}
     >
+                <Heading
+            fontSize="4xl"
+            color={useColorModeValue("black", "white")}
+            textAlign={"center"}
+            mb={5}
+            mt={0}
+          >
+            Chatbot
+          </Heading>
       <Box
         w={"full"}
         p={10}
-        pt={5}
         bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}
         shadow={"md"}
         rounded={"xl"}
+        h={"80vh"}
       >
-        <Flex justify="space-between" alignItems="center" mb={5} justifyContent={"center"}>
-          <Heading fontSize="3xl" fontWeight="bold" color={useColorModeValue("black", "white")} textAlign={"center"}>
-            Chatbot
-          </Heading>
-        </Flex>
-
-        <Box
+        {!isBotLoading ? (<Box
           flex={1}
           overflowY="auto"
-          h="350px"
+          h="65vh"
           p={5}
           borderRadius="md"
           ref={chatContainerRef}
           bg={useColorModeValue("rgb(255, 255, 255)", "gray.600")}
         >
-          {chatHistory.map((msg, index) => (
-            <Bubble
-              key={index}
-              message={msg}
-              isMyMessage={msg.role === "user"}
-            />
-          ))}
+          {chatLength > 0 ? (
+            chatHistory.map((msg, index) => (
+              <Bubble
+                key={index}
+                message={msg}
+                isMyMessage={msg.role === "user"}
+              />
+            ))
+          ) : (
+            <Box
+              p={5}
+              alignContent={"center"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              display={"flex"}
+              flexDir={"column"}
+              justifyItems={"center"}
+              h={"100%"}
+              rowGap={5}
+            >
+              <Heading fontSize={"2xl"}>What Can I Help You With </Heading>
+              <Text fontSize={"xl"}>
+                Type a prompt to start the conversation
+              </Text>
+            </Box>
+          )}
         </Box>
-
-        <Flex as="form" mt={3} align="center" onSubmit={sendMessage} gap={2}>
+): <Loader h={"65vh"} minH={"65vh"} w={"full"}/>}
+        
+        <Flex as="form" mt={3} align="center" onSubmit={sendMessage} gap={2} mb={0}>
           <Icon
             as={FaRegSmile}
             fontSize={"40px"}
@@ -183,10 +217,10 @@ export default function Chatbot() {
           {file && (
             <Flex align="center">
               <Text fontSize="sm">{file.name}</Text>
-              <IconButton
-                icon={<Close />}
+              <Icon
+                as={IoMdClose}
                 aria-label="Remove file"
-                size="xs"
+                size="sm"
                 onClick={removeFile}
               />
             </Flex>
@@ -197,6 +231,7 @@ export default function Chatbot() {
             placeholder="Type Prompt ..."
             size="sm"
             resize="none"
+            onKeyDown={handleSendOnEnter}
           />
           <Icon
             as={IoSend}
@@ -215,18 +250,20 @@ export default function Chatbot() {
       {showEmojiPicker && (
         <Box
           position="absolute"
-          bottom="50px"
-          left="10px"
+          bottom="170px"
+          left="80px"
           zIndex="30"
           ref={emojiPickerRef}
         >
           <EmojiPicker
             onEmojiClick={(emojiData) =>
-              setText((prev) => prev + emojiData.emoji)
+              setMessage((prev) => prev + emojiData.emoji)
             }
           />
         </Box>
       )}
     </Container>
   );
-}
+};
+
+export default Chatbot;
