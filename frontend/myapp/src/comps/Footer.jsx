@@ -2,11 +2,18 @@ import React from "react";
 import { Box, Text, HStack } from "@chakra-ui/react";
 import { useColorModeValue } from "../components/ui/color-mode";
 import { useAuthStore } from "../store/useAuthStore";
+<<<<<<< HEAD
 import {Link} from "react-router-dom";
 
 const Footer = () => {
 
     const { authUser } = useAuthStore();
+=======
+import { Link } from "react-router-dom";
+
+const Footer = () => {
+  const { authUser } = useAuthStore();
+>>>>>>> f871e41 (test commit)
 
   return (
     <Box
@@ -24,15 +31,30 @@ const Footer = () => {
     >
       <HStack justifyContent="center" gap={10}>
         <Link to="/Test">Test</Link>
+<<<<<<< HEAD
         {authUser ? (<Link to="/profile">Profile</Link>) : (<>
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
         </>)}
+=======
+        {authUser ? (
+          <Link to="/profile">Profile</Link>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
+>>>>>>> f871e41 (test commit)
         <Link to="/tasks">Tasks</Link>
         <Link to="/connect">Connect</Link>
       </HStack>
       <Text mt={2} fontSize="sm">
+<<<<<<< HEAD
         &copy; {new Date().getFullYear()} Soul Sync. All Right Reserved. 
+=======
+        &copy; {new Date().getFullYear()} Soul Sync. All Right Reserved.
+>>>>>>> f871e41 (test commit)
       </Text>
     </Box>
   );

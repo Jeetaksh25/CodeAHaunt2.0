@@ -1,5 +1,9 @@
 import React from "react";
+<<<<<<< HEAD
 import { Box, Text, VStack, HStack, } from "@chakra-ui/react";
+=======
+import { Box, Text, VStack, HStack } from "@chakra-ui/react";
+>>>>>>> f871e41 (test commit)
 import { useColorModeValue } from "../components/ui/color-mode";
 
 const Bubble = ({ message }) => {
@@ -49,4 +53,8 @@ const Bubble = ({ message }) => {
   );
 };
 
+<<<<<<< HEAD
 export default Bubble;  
+=======
+export default Bubble;
+>>>>>>> f871e41 (test commit)

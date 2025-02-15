@@ -9,8 +9,19 @@ import MessageInput from "./MessageInput";
 import ChatBubble from "./ChatBubble";
 
 const ChatContainer = () => {
+<<<<<<< HEAD
   const { getMessages, messages, isMessagesLoading, selectedUser, listenMessages, unlistenMessages } =
     useChatStore();
+=======
+  const {
+    getMessages,
+    messages,
+    isMessagesLoading,
+    selectedUser,
+    listenMessages,
+    unlistenMessages,
+  } = useChatStore();
+>>>>>>> f871e41 (test commit)
 
   const messagesContainerRef = useRef(null);
 
@@ -19,12 +30,20 @@ const ChatContainer = () => {
 
     const cleanup = listenMessages(selectedUser._id);
 
+<<<<<<< HEAD
     return()=>{
       if(cleanup) cleanup();
 
       unlistenMessages();
     };
 
+=======
+    return () => {
+      if (cleanup) cleanup();
+
+      unlistenMessages();
+    };
+>>>>>>> f871e41 (test commit)
   }, [selectedUser._id, getMessages, listenMessages, unlistenMessages]);
 
   useEffect(() => {
@@ -97,6 +116,7 @@ const ChatContainer = () => {
               px={4}
               rowGap={3}
             >
+<<<<<<< HEAD
                 <Box
                   w={"full"}
                   h={"full"}
@@ -109,6 +129,20 @@ const ChatContainer = () => {
                   <Heading>Chat with {selectedUser.fullName}</Heading>
                   <Text fontSize={"xl"}>Start Conversation Now</Text>
                 </Box>
+=======
+              <Box
+                w={"full"}
+                h={"full"}
+                display={"flex"}
+                flexDir={"column"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                rowGap={2}
+              >
+                <Heading>Chat with {selectedUser.fullName}</Heading>
+                <Text fontSize={"xl"}>Start Conversation Now</Text>
+              </Box>
+>>>>>>> f871e41 (test commit)
             </Box>
           ) : (
             <Loader minH={"65vh"} h={"65vh"} />
