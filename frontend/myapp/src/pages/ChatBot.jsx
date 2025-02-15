@@ -116,7 +116,6 @@ const Chatbot = () => {
     setFile(null);
   };
 
-
   return (
     <Container
       maxW={"6xl"}
@@ -128,15 +127,15 @@ const Chatbot = () => {
       alignItems={"center"}
       flexDir={"column"}
     >
-                <Heading
-            fontSize="4xl"
-            color={useColorModeValue("black", "white")}
-            textAlign={"center"}
-            mb={5}
-            mt={0}
-          >
-            Chatbot
-          </Heading>
+      <Heading
+        fontSize="4xl"
+        color={useColorModeValue("black", "white")}
+        textAlign={"center"}
+        mb={5}
+        mt={0}
+      >
+        Chatbot
+      </Heading>
       <Box
         w={"full"}
         p={10}
@@ -145,45 +144,55 @@ const Chatbot = () => {
         rounded={"xl"}
         h={"80vh"}
       >
-        {!isBotLoading ? (<Box
-          flex={1}
-          overflowY="auto"
-          h="65vh"
-          p={5}
-          borderRadius="md"
-          ref={chatContainerRef}
-          bg={useColorModeValue("rgb(255, 255, 255)", "gray.600")}
+        {!isBotLoading ? (
+          <Box
+            flex={1}
+            overflowY="auto"
+            h="65vh"
+            p={5}
+            borderRadius="md"
+            ref={chatContainerRef}
+            bg={useColorModeValue("rgb(255, 255, 255)", "gray.600")}
+          >
+            {chatLength > 0 ? (
+              chatHistory.map((msg, index) => (
+                <Bubble
+                  key={index}
+                  message={msg}
+                  isMyMessage={msg.role === "user"}
+                />
+              ))
+            ) : (
+              <Box
+                p={5}
+                alignContent={"center"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                display={"flex"}
+                flexDir={"column"}
+                justifyItems={"center"}
+                h={"100%"}
+                rowGap={5}
+              >
+                <Heading fontSize={"2xl"}>What Can I Help You With </Heading>
+                <Text fontSize={"xl"}>
+                  Type a prompt to start the conversation
+                </Text>
+              </Box>
+            )}
+          </Box>
+        ) : (
+          <Loader h={"65vh"} minH={"65vh"} w={"full"} />
+        )}
+
+        <Flex
+          as="form"
+          mt={3}
+          align="center"
+          onSubmit={sendMessage}
+          gap={2}
+          mb={0}
         >
-          {chatLength > 0 ? (
-            chatHistory.map((msg, index) => (
-              <Bubble
-                key={index}
-                message={msg}
-                isMyMessage={msg.role === "user"}
-              />
-            ))
-          ) : (
-            <Box
-              p={5}
-              alignContent={"center"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              display={"flex"}
-              flexDir={"column"}
-              justifyItems={"center"}
-              h={"100%"}
-              rowGap={5}
-            >
-              <Heading fontSize={"2xl"}>What Can I Help You With </Heading>
-              <Text fontSize={"xl"}>
-                Type a prompt to start the conversation
-              </Text>
-            </Box>
-          )}
-        </Box>
-): <Loader h={"65vh"} minH={"65vh"} w={"full"}/>}
-        
-        <Flex as="form" mt={3} align="center" onSubmit={sendMessage} gap={2} mb={0}>
           <Icon
             as={FaRegSmile}
             fontSize={"40px"}

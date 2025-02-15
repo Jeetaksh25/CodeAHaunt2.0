@@ -374,8 +374,8 @@ const Test = () => {
               }}
               w={"max-content"}
               alignItems={"left"}
-              bg={useColorModeValue("rgb(254, 244, 226)", "gray.600")}
-              color={useColorModeValue("black", "white")}
+              bg={useColorModeValue("black", "gray.600")}
+              color={useColorModeValue("white", "white")}
             >
               Take another test
             </Button>
@@ -384,9 +384,9 @@ const Test = () => {
             <Button
               onClick={() => navigate("/tasks")}
               m={5}
-              alignItems={"left"}
-              bg={useColorModeValue("rgb(254, 244, 226)", "gray.600")}
-              color={useColorModeValue("black", "white")}
+              alignItems={"center"}
+              bg={useColorModeValue("black", "gray.600")}
+              color={useColorModeValue("white", "white")}
             >
               Go to Daily Tasks
             </Button>
