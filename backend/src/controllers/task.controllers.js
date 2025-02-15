@@ -1,19 +1,31 @@
 import Task from "../models/task.model.js";
 import User from "../models/user.model.js";
 
-export const getTasks = async (req,res) => {
+export const getTasks = async (req, res) => {
     try {
         const userId = req.user._id;
         const user = await User.findById(userId).populate("completedTasks");
 
-        const tasks = await Task.find({_id:{$nin:user.completedTasks}}).limit(3);
+        const now = new Date();
+        const lastRefresh = new Date(user.lastTaskRefresh);
+        const hoursSinceLastRefresh = (now - lastRefresh) / (1000 * 60 * 60);
 
-        res.status(200).json(tasks);
+        if (hoursSinceLastRefresh < 24) {
+            const remainingTasks = await Task.find({ _id: { $nin: user.completedTasks } }).limit(3);
+            return res.status(200).json(remainingTasks);
+        }
+
+        await User.findByIdAndUpdate(userId, { $set: { completedTasks: [], lastTaskRefresh: now } });
+
+        const newTasks = await Task.find().limit(3);
+
+        res.status(200).json(newTasks);
     } catch (error) {
-        console.log(error);
+        console.error(error);
         res.status(500).json({ message: "Internal server error" });
     }
-}
+};
+
 
 export const completeTask = async (req,res) => {
     try {

@@ -13,17 +13,15 @@ export const useTaskStore = create((set) => ({
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 
-      console.log(res.data);
       set({ tasks: res.data });
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to fetch tasks");
     } finally {
       set({ isFetchingTasks: false });
     }
   },
   completeTask: async (taskId) => {
-    console.log(taskId);
     if (!taskId) {
       toast.error("Task ID is required");
       return;
@@ -39,7 +37,7 @@ export const useTaskStore = create((set) => ({
 
       toast.success("Task completed successfully");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to complete task");
     }
   },

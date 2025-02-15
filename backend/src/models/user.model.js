@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Task",
     }],
+    lastTaskRefresh:{
+      type: Date,
+      default: new Date(0),
+    }
   },
   {
     timestamps: true,
