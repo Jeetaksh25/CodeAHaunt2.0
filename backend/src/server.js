@@ -10,6 +10,8 @@ import authRoutes from "./routes/auth.route.js";
 import taskRoutes from "./routes/task.route.js";
 import chatRoutes from "./routes/chat.route.js";
 import {app,server} from "./lib/socket.js";
+import connectRoutes from "./routes/connect.route.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,6 +30,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api", taskRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/connect", connectRoutes);
 
 server.listen(5001, () => {
   connectDB();

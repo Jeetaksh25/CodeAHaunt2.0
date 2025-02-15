@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
     lastTaskRefresh:{
       type: Date,
       default: new Date(0),
+    },
+    meetingDetails:{
+      type: String,
     }
   },
   {

@@ -17,7 +17,7 @@ import Connect from "./pages/Connect.jsx";
 import Footer from "./comps/Footer.jsx";
 import Chat from "./pages/Chat.jsx";
 import Chatbot from "./pages/ChatBot.jsx";
-
+import RoomPage from "./pages/RoomPage.jsx";
 import Loader from "./comps/Loader.jsx";
 
 function App() {
@@ -62,6 +62,7 @@ function App() {
             path="/connect"
             element={authUser ? <Connect /> : <Navigate to="/login" />}
           />
+          <Route path="/connect/room/:roomId" element={authUser ? <RoomPage/> : <Navigate to="/login"/> }/>
           <Route
             path="/chatbot"
             element={authUser ?
@@ -73,7 +74,6 @@ function App() {
             path="/freechat"
             element={authUser ? <Chat/> : <Navigate to="/login" />}
           />
-
         </Routes>
       </Container>
 
