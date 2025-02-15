@@ -336,11 +336,7 @@ const Test = () => {
         shadow={useColorModeValue("md", "md")}
       >
         <VStack gap={5} alignItems={"left"}>
-<<<<<<< HEAD
-          <Text fontSize={"xl"} >Question: {currentQuestionIndex + 1}/20</Text>
-=======
           <Text fontSize={"xl"}>Question: {currentQuestionIndex + 1}/20</Text>
->>>>>>> f871e41 (test commit)
           <Heading
             fontSize={{ base: "xl", sm: "xl", md: "2xl", lg: "2xl" }}
             p={3}

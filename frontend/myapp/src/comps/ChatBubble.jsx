@@ -54,16 +54,12 @@ const ChatBubble = ({ message, selectedUser }) => {
       my={5}
       justifyContent={isMyMessage ? "flex-end" : "flex-start"}
     >
-<<<<<<< HEAD
-      <VStack alignItems={isMyMessage ? "flex-end" : "flex-start"} gap={1} m={0} p={0}>
-=======
       <VStack
         alignItems={isMyMessage ? "flex-end" : "flex-start"}
         gap={1}
         m={0}
         p={0}
       >
->>>>>>> f871e41 (test commit)
         <VStack
           align={"start"}
           maxW={"350px"}
@@ -96,11 +92,7 @@ const ChatBubble = ({ message, selectedUser }) => {
         </VStack>
         {!isMyMessage ? (
           <Text>
-<<<<<<< HEAD
-            • {isMyMessage ? "You" : selectedUser?.fullName || "Unknown User"} 
-=======
             • {isMyMessage ? "You" : selectedUser?.fullName || "Unknown User"}
->>>>>>> f871e41 (test commit)
           </Text>
         ) : (
           <Text>

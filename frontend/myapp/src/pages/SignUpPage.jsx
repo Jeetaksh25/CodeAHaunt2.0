@@ -28,11 +28,7 @@ const SignUpPage = () => {
   const { authUser, isSigningUp, signup } = useAuthStore();
   useEffect(() => {
     if (isSigningUp && !authUser) {
-<<<<<<< HEAD
-      return ;
-=======
       return;
->>>>>>> f871e41 (test commit)
     }
   }, [isSigningUp, authUser]);
 
@@ -159,27 +155,19 @@ const SignUpPage = () => {
                   name="role"
                   value={formData.role}
                   onChange={(e) =>
-<<<<<<< HEAD
-                    setFormData({ ...formData, role: e.target.checked ? "therapist" : "patient" })
-=======
                     setFormData({
                       ...formData,
                       role: e.target.checked ? "therapist" : "patient",
                     })
->>>>>>> f871e41 (test commit)
                   }
                   bg={"transparent"}
                   fontSize={"xl"}
                   size={"lg"}
                   variant={"solid"}
                   isChecked={formData.role === "therapist"}
-<<<<<<< HEAD
-                ><Text fontSize={"lg"}>Register as Therapist</Text></Checkbox>
-=======
                 >
                   <Text fontSize={"lg"}>Register as Therapist</Text>
                 </Checkbox>
->>>>>>> f871e41 (test commit)
               </HStack>
             </VStack>
             <Button

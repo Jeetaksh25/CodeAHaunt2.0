@@ -25,13 +25,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (isLoggingIn && !authUser) {
-<<<<<<< HEAD
-      return (
-        <Loader minH={"100vh"} h={"100%"}/>
-      );
-=======
       return <Loader minH={"100vh"} h={"100%"} />;
->>>>>>> f871e41 (test commit)
     }
   }, []);
 

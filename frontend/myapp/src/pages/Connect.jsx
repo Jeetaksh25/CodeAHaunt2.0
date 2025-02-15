@@ -49,12 +49,6 @@ const Connect = () => {
       color={"black"}
     >
       <VStack gap={10} p={10} w={"full"}>
-<<<<<<< HEAD
-        <Heading textAlign={"center"} fontSize={"4xl"} color={useColorModeValue("black", "white")}>
-          Connect with Professionals
-        </Heading>
-        <Box w={"full"} p={10} bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")} shadow={"md"} rounded={"xl"} color={useColorModeValue("black", "white")}>
-=======
         <Heading
           textAlign={"center"}
           fontSize={"4xl"}
@@ -70,22 +64,17 @@ const Connect = () => {
           rounded={"xl"}
           color={useColorModeValue("black", "white")}
         >
->>>>>>> f871e41 (test commit)
           <VStack gap={10}>
             <RadioGroup
               value={value}
               onChange={(e) => setValue(e.target.value)}
               fontSize={"xl"}
             >
-<<<<<<< HEAD
-              <Flex gap={10} fontSize={"xl"} flexDir={{ base: "column", md: "row" }}>
-=======
               <Flex
                 gap={10}
                 fontSize={"xl"}
                 flexDir={{ base: "column", md: "row" }}
               >
->>>>>>> f871e41 (test commit)
                 <Radio value="Counselor" fontSize={"xl"}>
                   Counselor
                 </Radio>

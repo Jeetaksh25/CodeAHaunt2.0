@@ -20,13 +20,8 @@ const Profile = () => {
     getProfile();
   }, [getProfile]);
 
-<<<<<<< HEAD
-  if(!getProfile){
-    <Loader minH={"100vh"} h={"100%"}/>
-=======
   if (!getProfile) {
     <Loader minH={"100vh"} h={"100%"} />;
->>>>>>> f871e41 (test commit)
   }
 
   return (

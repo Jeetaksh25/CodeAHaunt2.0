@@ -4,9 +4,6 @@ import { useColorModeValue } from "../components/ui/color-mode";
 
 const Loader = (props) => {
   return (
-<<<<<<< HEAD
-    <VStack gap={2} justifyContent={"center"} h={props.h} boxSizing={"border-box"} alignContent={"center"} alignItems={"center"} {...props}>
-=======
     <VStack
       gap={2}
       justifyContent={"center"}
@@ -16,7 +13,6 @@ const Loader = (props) => {
       alignItems={"center"}
       {...props}
     >
->>>>>>> f871e41 (test commit)
       <Spinner
         size="xl"
         thickness="10px"

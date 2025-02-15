@@ -21,9 +21,6 @@ const Chat = () => {
           p={5}
           h={"85vh"}
         >
-<<<<<<< HEAD
-          <Box display={"flex"} h={"full"} rounded={"lg"} overflow={"hidden"} w={"100%"}>
-=======
           <Box
             display={"flex"}
             h={"full"}
@@ -31,7 +28,6 @@ const Chat = () => {
             overflow={"hidden"}
             w={"100%"}
           >
->>>>>>> f871e41 (test commit)
             <SidebarChat />
 
             {!selectedUser ? <NoChatSelected /> : <ChatContainer />}

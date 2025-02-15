@@ -12,20 +12,11 @@ import {
   HStack,
 } from "@chakra-ui/react";
 import Loader from "./Loader";
-<<<<<<< HEAD
-import { Switch } from "@/components/ui/switch"
-
-
-
-const Users = () => {
-  const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } = useChatStore();
-=======
 import { Switch } from "@/components/ui/switch";
 
 const Users = () => {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
     useChatStore();
->>>>>>> f871e41 (test commit)
   const { onlineUsers, isTherapist } = useAuthStore();
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
 
@@ -33,13 +24,6 @@ const Users = () => {
     getUsers();
   }, []);
 
-<<<<<<< HEAD
-  const filteredUsers = showOnlineOnly ? users.filter(user => onlineUsers.includes(user._id)) : users;
-
-  const handleFilter = () => {
-    setShowOnlineOnly(!showOnlineOnly);
-  }
-=======
   const filteredUsers = showOnlineOnly
     ? users.filter((user) => onlineUsers.includes(user._id))
     : users;
@@ -47,7 +31,6 @@ const Users = () => {
   const handleFilter = () => {
     setShowOnlineOnly(!showOnlineOnly);
   };
->>>>>>> f871e41 (test commit)
 
   return (
     <Container
@@ -70,12 +53,6 @@ const Users = () => {
           justifyContent={"center"}
         >
           <Heading textAlign={"center"} fontSize={"2xl"}>
-<<<<<<< HEAD
-          {isTherapist ? "Available Patients" : "Available Counselors"}
-          </Heading>
-          <Switch defaultChecked={showOnlineOnly} onChange={handleFilter} mt={4} bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}>
-          {showOnlineOnly ? "Show All" : "Show Online Only"}
-=======
             {isTherapist ? "Available Patients" : "Available Counselors"}
           </Heading>
           <Switch
@@ -85,7 +62,6 @@ const Users = () => {
             bg={useColorModeValue("rgb(254, 244, 226)", "gray.800")}
           >
             {showOnlineOnly ? "Show All" : "Show Online Only"}
->>>>>>> f871e41 (test commit)
           </Switch>
         </Box>
         {!isUsersLoading ? (
@@ -111,13 +87,6 @@ const Users = () => {
                   textAlign={"left"}
                   _hover={{ bg: "gray.200" }}
                   color={useColorModeValue("black", "white")}
-<<<<<<< HEAD
-                  bg={selectedUser?._id === user._id ? "gray.300" : "transparent"}
-                  my={2}
-                  bgColor={useColorModeValue("rgb(254, 244, 226)", "gray.800")}
-                >
-                  <HStack justifyContent={"space-between"} w={"100%"} h={"100%"}>
-=======
                   bg={
                     selectedUser?._id === user._id ? "gray.300" : "transparent"
                   }
@@ -129,7 +98,6 @@ const Users = () => {
                     w={"100%"}
                     h={"100%"}
                   >
->>>>>>> f871e41 (test commit)
                     <Text>{user.fullName}</Text>
                     <Text>{onlineUsers.includes(user._id) ? "🟢" : "🔴"} </Text>
                   </HStack>
@@ -137,12 +105,6 @@ const Users = () => {
               ))
             ) : (
               <Text textAlign="center" p={4}>
-<<<<<<< HEAD
-                {isTherapist ? "No patients available" : "No counselors available"}
-              </Text>
-            )}
-            {filteredUsers.length === 0 && <Text textAlign="center">{isTherapist ? "No patients available" : "No counselors available"}</Text>}
-=======
                 {isTherapist
                   ? "No patients available"
                   : "No counselors available"}
@@ -155,7 +117,6 @@ const Users = () => {
                   : "No counselors available"}
               </Text>
             )}
->>>>>>> f871e41 (test commit)
           </Box>
         ) : (
           <Loader minH={"65vh"} h={"65vh"} />
@@ -165,8 +126,4 @@ const Users = () => {
   );
 };
 
-<<<<<<< HEAD
 export default Users;
-=======
-export default Users;
->>>>>>> f871e41 (test commit)

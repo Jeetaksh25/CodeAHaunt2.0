@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import React,{useEffect} from "react";
-=======
 import React, { useEffect } from "react";
->>>>>>> f871e41 (test commit)
 import {
   Container,
   Box,
@@ -19,13 +15,6 @@ import { useColorModeValue } from "../components/ui/color-mode";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
-<<<<<<< HEAD
-
-
-  return (
-    <Container w="100%" minH="100vh" p={5}>
-
-=======
   const handleScroll = () => {
     window.scrollTo({
       top: 900,
@@ -228,7 +217,6 @@ const HomePage = () => {
           </VStack>
         </Box>
       </VStack>
->>>>>>> f871e41 (test commit)
     </Container>
   );
 };

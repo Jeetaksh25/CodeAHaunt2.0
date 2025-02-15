@@ -8,23 +8,14 @@ import { useColorModeValue } from "../components/ui/color-mode.jsx";
 import Loader from "../comps/Loader.jsx";
 
 const TaskPage = () => {
-<<<<<<< HEAD
-  const { tasks, fetchTasks, completeTask,isFetchingTasks } = useTaskStore();
-=======
   const { tasks, fetchTasks, completeTask, isFetchingTasks } = useTaskStore();
->>>>>>> f871e41 (test commit)
 
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]);
 
-<<<<<<< HEAD
-  if(!isFetchingTasks){
-    <Loader minH={"100vh"} h={"100%"}/>
-=======
   if (!isFetchingTasks) {
     <Loader minH={"100vh"} h={"100%"} />;
->>>>>>> f871e41 (test commit)
   }
 
   return (
@@ -91,8 +82,4 @@ const TaskPage = () => {
   );
 };
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f871e41 (test commit)
 export default TaskPage;

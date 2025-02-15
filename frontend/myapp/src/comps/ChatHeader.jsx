@@ -1,11 +1,7 @@
 import React from "react";
 import { useChatStore } from "../store/useChatStore";
 import { useAuthStore } from "../store/useAuthStore";
-<<<<<<< HEAD
-import { Box, Heading, Button, HStack,Icon } from "@chakra-ui/react";
-=======
 import { Box, Heading, Button, HStack, Icon } from "@chakra-ui/react";
->>>>>>> f871e41 (test commit)
 import { useColorModeValue } from "../components/ui/color-mode";
 import { IoClose } from "react-icons/io5";
 
@@ -29,10 +25,6 @@ const ChatHeader = () => {
         <Heading textAlign={"center"} fontSize={"2xl"} p={2}>
           {selectedUser.fullName}
         </Heading>
-<<<<<<< HEAD
-        <Button fontSize={"30px"} onClick={() => setSelectedUser(null)} bg={"transparent"} p={0} m={0}>
-            <Icon as={IoClose} boxSize={"30px"} color={useColorModeValue("gray.600", "gray.200")}/>
-=======
         <Button
           fontSize={"30px"}
           onClick={() => setSelectedUser(null)}
@@ -45,7 +37,6 @@ const ChatHeader = () => {
             boxSize={"30px"}
             color={useColorModeValue("gray.600", "gray.200")}
           />
->>>>>>> f871e41 (test commit)
         </Button>
       </HStack>
     </Box>
