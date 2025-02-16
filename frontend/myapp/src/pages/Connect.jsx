@@ -70,11 +70,11 @@ function Connect() {
         justifyContent={"center"}
         gap={10}
       >
-        <Text fontSize="lg" textAlign="center" color={useColorModeValue("black", "white")}>
-          Start a video call with a randomly generated Room ID
+        <Text fontSize="2xl" textAlign="center" color={useColorModeValue("black", "white")}>
+          Start a video call with a therapist
         </Text>
 
-        <HStack gap={6} width="100%">
+        <HStack gap={6} width="80%">
           <Input
             placeholder="Generated Room ID"
             value={roomId}
@@ -83,12 +83,12 @@ function Connect() {
             textAlign="center"
             fontSize={"lg"}
           />
-          <Button colorScheme="blue" onClick={handleRoomIdGenerate}>
+          <Button colorScheme="blue" onClick={handleRoomIdGenerate} maxW="max-content">
             Generate Room ID
           </Button>
         </HStack>
 
-        <HStack gap={4} width="100%" justifyContent={"center"}>
+        <HStack gap={4} width="80%" justifyContent={"space-around"}>
           <Button
             colorScheme="green"
             onClick={handleOneAndOneCall}

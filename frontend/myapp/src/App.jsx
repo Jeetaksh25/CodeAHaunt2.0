@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { axiosInstance } from "./lib/axios.js";
 import { useAuthStore } from "./store/useAuthStore.js";
 import { Toaster } from "react-hot-toast";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Box, Text, VStack, Spinner, Container, Flex } from "@chakra-ui/react";
+import { Routes, Route, Navigate, useNavigate} from "react-router-dom";
+import { Box, Text, VStack, Spinner, Container, Flex,Button, Heading } from "@chakra-ui/react";
 import { useColorModeValue } from "./components/ui/color-mode.jsx";
+import { TbRobotFace } from "react-icons/tb";
 
 import NavBar from "./comps/NavBar.jsx";
 import HomePage from "./pages/HomePage.jsx";
@@ -23,6 +24,7 @@ import Loader from "./comps/Loader.jsx";
 function App() {
   const { authUser, isCheckingAuth, checkAuth, onlineUsers } = useAuthStore();
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     checkAuth();
@@ -76,6 +78,13 @@ function App() {
           />
         </Routes>
       </Container>
+
+      <Box position={"fixed"} bottom={"20px"} right={"20px"} zIndex={"100"} alignItems={"center"} justifyItems={"center"}>
+      <Text>Ask a Question</Text>
+      <Button onClick={() => navigate("/chatbot")} m={2}><TbRobotFace/></Button>
+      </Box>
+
+
 
       <Toaster />
       <Footer />
