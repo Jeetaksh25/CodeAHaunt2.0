@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["patient","therapist"],
       required: true,
+      default: "patient",
     },
     completedTasks: [{
       type: mongoose.Schema.Types.ObjectId,

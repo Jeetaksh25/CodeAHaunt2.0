@@ -6,27 +6,7 @@ import EmojiPicker from "emoji-picker-react";
 import { useChatStore } from "../store/useChatStore";
 
 const wordsDictionary = [
-  "Hello",
-  "Hey",
-  "How",
-  "How are you",
-  "Happy",
-  "Help",
-  "Hope",
-  "Good",
-  "Great",
-  "Game",
-  "Going",
-  "Got",
-  "Give",
-  "Thanks",
-  "There",
-  "Tomorrow",
-  "Today",
-  "Talk",
-  "Try",
-  "Text",
-  "Team",
+
 ];
 
 const MessageInput = ({ messagesContainerRef }) => {
